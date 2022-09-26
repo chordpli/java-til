@@ -16,6 +16,7 @@
       <module fileurl="file://$PROJECT_DIR$/self_jpa/ch12-springdata-shop/ch12-springdata-shop.iml" filepath="$PROJECT_DIR$/self_jpa/ch12-springdata-shop/ch12-springdata-shop.iml" />
       <module fileurl="file://$PROJECT_DIR$/scribble/scribble.iml" filepath="$PROJECT_DIR$/scribble/scribble.iml" />
       <module fileurl="file://$PROJECT_DIR$/shop/shop.iml" filepath="$PROJECT_DIR$/shop/shop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/techit_study/techit_study.iml" filepath="$PROJECT_DIR$/techit_study/techit_study.iml" />
     </modules>
   </component>
 </project>
