@@ -7,6 +7,7 @@ import java.util.Map;
 class Solution2 {
     public String solution(String[] participant, String[] completion) {
         Map<String, Boolean> result = new HashMap<>();
+        // 두 배열을 List로 합쳐서 홀,짝에 따라 true, false//
         String check = null;
 
         Arrays.sort(participant);
@@ -26,6 +27,7 @@ class Solution2 {
                     }
                 }
             }
+
             if (!result.get(p)) {
                 check = p;
             }

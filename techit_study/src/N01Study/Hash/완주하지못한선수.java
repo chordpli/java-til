@@ -1,5 +1,6 @@
 package N01Study.Hash;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +23,9 @@ class Solution {
                 }
             }
         }
+
         String fail = null;
+
         for (Map.Entry<String, String> entry : result.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
