@@ -5,7 +5,6 @@ public class ans03 {
 
     }
 }
-
 class Solution {
     public String solution(String code) { // -> String 배열로 받아야 원하는 자료입력을 할 수 있습니다.
         Stack<Integer> stack = new Stack<>();
