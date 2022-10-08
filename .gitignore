@@ -27,4 +27,6 @@ bin/
 
 ### Mac OS ###
 .DS_Store!/kotlin/.idea/
-!/kotlin/kotlin.iml
+/likelion_adu/likelion_adu.iml
+/TIL.iml
+/.idea/
