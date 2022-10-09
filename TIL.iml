@@ -9,6 +9,7 @@
         <webroots>
           <root url="file://$MODULE_DIR$/self_jpa/ch11-jpa-shop/src/main/webapp" relative="/" />
         </webroots>
+        <sourceRoots />
       </configuration>
     </facet>
     <facet type="web" name="Web2">
@@ -19,6 +20,7 @@
         <webroots>
           <root url="file://$MODULE_DIR$/self_jpa/ch12-springdata-shop/src/main/webapp" relative="/" />
         </webroots>
+        <sourceRoots />
       </configuration>
     </facet>
     <facet type="jpa" name="JPA">

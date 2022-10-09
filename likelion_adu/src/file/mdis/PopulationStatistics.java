@@ -1,17 +1,18 @@
 package file.mdis;
 
+import javax.security.auth.kerberos.KerberosTicket;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /*
-
 1. csv파일을 읽어온다.
 2. 콤마(,)를 사용하여 Split을 진행한다. 우리에게 필요한 것은 1 진입 시,도 코드 2. 전출 시,도 코드
 3. 스플릿한 내용을 파일로 저장한다.
-
-
 */
+
 public class PopulationStatistics {
 
     // 파일을 불러와서 10,000자 읽기
@@ -75,14 +76,74 @@ public class PopulationStatistics {
     }
 
 
+    public Map<String, Integer> getMoveCntMap(List<PopulationMove> populationMoveList) {
+        Map<String, Integer> moveCntMap = new HashMap<>();
+
+        for (PopulationMove pm : populationMoveList) {
+            String key = pm.getFromSido() + "," + pm.getToSido();
+            if (moveCntMap.get(key) == null) {
+                moveCntMap.put(key, 1);
+            } else {
+                moveCntMap.put(key, moveCntMap.get(key) + 1);
+            }
+        }
+        return moveCntMap;
+    }
+
+    public PopulationMove parseForHeatmap(String data) {
+        String str[] = data.split(",");
+        int fromSido = Integer.parseInt(str[0]);
+        int toSido = Integer.parseInt(str[1]);
+        PopulationMove pm = new PopulationMove(fromSido, toSido);
+        return pm;
+    }
+
+    // 파일을 읽어와서 한 줄씩 읽기
+    public List<PopulationMove> readByLineForHeatmap(String filename) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(filename));
+        String str;
+        List<PopulationMove> pml = new ArrayList<>();
+        while ((str = br.readLine()) != null) {
+            System.out.println(str);
+            PopulationMove pm = parseForHeatmap(str);
+            pml.add(pm);
+        }
+        return pml;
+    }
+
+    public Map<String, Integer> heatmapIdxMap() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("11", 0);
+        map.put("26", 1);
+        map.put("27", 2);
+        map.put("28", 3);
+        map.put("29", 4);
+        map.put("30", 5);
+        map.put("31", 6);
+        map.put("36", 7);
+        map.put("41", 8);
+        map.put("42", 9);
+        map.put("43", 10);
+        map.put("44", 11);
+        map.put("45", 12);
+        map.put("46", 13);
+        map.put("47", 14);
+        map.put("48", 15);
+        map.put("50", 16);
+
+        return map;
+    }
+
     public static void main(String[] args) throws IOException {
-        String fileAddress = "P:\\TechIt\\교재\\week3\\2021_인구관련연간자료_20220927_66125.csv";
+        //String fileAddress = "P:\\TechIt\\교재\\week3\\2021_인구관련연간자료_20220927_66125.csv";
+        String fileAddress = "F:\\techit\\2021_인구관련연간자료_20220927_66125.csv";
         PopulationStatistics ps = new PopulationStatistics();
         List<PopulationMove> pml = ps.readByLine(fileAddress);
 
         //  $$(전출코드),$$(전입코드) 형식으로 파일 정리.
-        String folderName = "P:\\Study\\BootSpring\\TIL\\likelion_adu\\src\\file\\mdis\\splitData.txt";
-        ps.createFile(folderName);
+        //String filename = "P:\\Study\\BootSpring\\TIL\\likelion_adu\\src\\file\\mdis\\splitData.txt";
+        String filename = "F:\\Study\\java-til\\likelion_adu\\src\\file\\mdis\\splitData.txt";
+        ps.createFile(filename);
 
         List<String> inData = new ArrayList<>();
         for (PopulationMove pm : pml) {
@@ -90,7 +151,26 @@ public class PopulationStatistics {
             inData.add(str);
         }
 
-        ps.write(inData, folderName);
+        ps.write(inData, filename);
+
+        // $$(전출코드), $$(전입코드)를 heat맵 형식에 맞게,
+        fileAddress = "F:\\Study\\java-til\\likelion_adu\\src\\file\\mdis\\splitData.txt";
+        pml = ps.readByLineForHeatmap(fileAddress);
+
+        Map<String, Integer> map = ps.getMoveCntMap(pml);
+        Map<String, Integer> heatmapIdxMap = ps.heatmapIdxMap();
+        // + 전입 전출한 숫자 증가자료 포함하여 다시 추출
+        String targetFilename = "for_heatmap.txt";
+        ps.createFile(targetFilename);
+        List<String> cntResult = new ArrayList<>();
+
+        for (String key : map.keySet()) {
+            String[] fromto = key.split(",");
+            // 매핑 후 저장
+            String s = String.format("[%s, %s, %d] ,", heatmapIdxMap.get(fromto[0]), heatmapIdxMap.get(fromto[1]), map.get(key));
+            cntResult.add(s);
+        }
+        ps.write(cntResult, targetFilename);
 
     }
 }

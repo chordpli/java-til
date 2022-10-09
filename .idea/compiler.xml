@@ -9,8 +9,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ch04-model1" />
         <module name="ch05-model2" />
-        <module name="ch06-model3" />
         <module name="shop" />
+        <module name="ch06-model3" />
         <module name="ch12-springdata-shop" />
         <module name="ch04-jpa-start2" />
         <module name="ch02-jpa-start1" />
