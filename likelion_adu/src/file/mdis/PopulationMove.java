@@ -20,15 +20,7 @@ public class PopulationMove {
         return toSido;
     }
 
-    public void setToSido(int toSido) {
-        this.toSido = toSido;
-    }
-
     public int getFromSido() {
         return fromSido;
-    }
-
-    public void setFromSido(int fromSido) {
-        this.fromSido = fromSido;
     }
 }

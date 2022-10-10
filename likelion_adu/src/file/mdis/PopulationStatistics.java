@@ -1,7 +1,9 @@
 package file.mdis;
 
-import javax.security.auth.kerberos.KerberosTicket;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,13 +33,18 @@ public class PopulationStatistics {
     }
 
     // 파일을 읽어와서 한 줄씩 읽기
-    public List<PopulationMove> readByLine(String filename) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(filename));
-        String str;
+    public List<PopulationMove> readByLine(String filename) {
         List<PopulationMove> pml = new ArrayList<>();
-        while ((str = br.readLine()) != null) {
-            PopulationMove pm = parse(str);
-            pml.add(pm);
+        try {
+            BufferedReader br = Files.newBufferedReader(Paths.get(filename), StandardCharsets.UTF_8);
+            String str;
+            while ((str = br.readLine()) != null) {
+                PopulationMove pm = parse(str);
+                System.out.println(pm.getToSido() + "," + pm.getFromSido());
+                pml.add(pm);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return pml;
     }
@@ -70,6 +77,7 @@ public class PopulationStatistics {
             for (String str : strs) {
                 bw.write(str);
             }
+            bw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -104,7 +112,7 @@ public class PopulationStatistics {
         String str;
         List<PopulationMove> pml = new ArrayList<>();
         while ((str = br.readLine()) != null) {
-            System.out.println(str);
+            //System.out.println(str);
             PopulationMove pm = parseForHeatmap(str);
             pml.add(pm);
         }
@@ -135,14 +143,15 @@ public class PopulationStatistics {
     }
 
     public static void main(String[] args) throws IOException {
-        //String fileAddress = "P:\\TechIt\\교재\\week3\\2021_인구관련연간자료_20220927_66125.csv";
-        String fileAddress = "F:\\techit\\2021_인구관련연간자료_20220927_66125.csv";
+        String fileAddress = "P:\\TechIt\\교재\\week3\\2021_인구관련연간자료_20221006_45659.csv";
+        //String fileAddress = "F:\\techit\\2021_인구관련연간자료_20220927_66125.csv";
         PopulationStatistics ps = new PopulationStatistics();
         List<PopulationMove> pml = ps.readByLine(fileAddress);
 
+        System.out.println(pml.size());
         //  $$(전출코드),$$(전입코드) 형식으로 파일 정리.
-        //String filename = "P:\\Study\\BootSpring\\TIL\\likelion_adu\\src\\file\\mdis\\splitData.txt";
-        String filename = "F:\\Study\\java-til\\likelion_adu\\src\\file\\mdis\\splitData.txt";
+        String filename = "P:\\Study\\BootSpring\\TIL\\likelion_adu\\src\\file\\mdis\\splitData.txt";
+        //String filename = "F:\\Study\\java-til\\likelion_adu\\src\\file\\mdis\\splitData.txt";
         ps.createFile(filename);
 
         List<String> inData = new ArrayList<>();
@@ -154,7 +163,8 @@ public class PopulationStatistics {
         ps.write(inData, filename);
 
         // $$(전출코드), $$(전입코드)를 heat맵 형식에 맞게,
-        fileAddress = "F:\\Study\\java-til\\likelion_adu\\src\\file\\mdis\\splitData.txt";
+        //fileAddress = "F:\\Study\\java-til\\likelion_adu\\src\\file\\mdis\\splitData.txt";
+        fileAddress = "P:\\Study\\BootSpring\\TIL\\likelion_adu\\src\\file\\mdis\\splitData.txt";
         pml = ps.readByLineForHeatmap(fileAddress);
 
         Map<String, Integer> map = ps.getMoveCntMap(pml);
