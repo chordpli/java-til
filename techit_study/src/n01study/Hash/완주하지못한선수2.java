@@ -1,4 +1,4 @@
-package N01Study.Hash;
+package n01study.Hash;
 
 import java.util.Arrays;
 import java.util.HashMap;
