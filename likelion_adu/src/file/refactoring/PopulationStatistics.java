@@ -1,4 +1,4 @@
-package file.mdis;
+package file.refactoring;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -88,34 +88,9 @@ public class PopulationStatistics {
 
         for (PopulationMove pm : populationMoveList) {
             String key = pm.getFromSido() + "," + pm.getToSido();
-            if (moveCntMap.get(key) == null) {
-                moveCntMap.put(key, 1);
-            } else {
-                moveCntMap.put(key, moveCntMap.get(key) + 1);
-            }
+            moveCntMap.put(key, moveCntMap.getOrDefault(key, 0) + 1);
         }
         return moveCntMap;
-    }
-
-    public PopulationMove parseForHeatmap(String data) {
-        String str[] = data.split(",");
-        int fromSido = Integer.parseInt(str[0]);
-        int toSido = Integer.parseInt(str[1]);
-        PopulationMove pm = new PopulationMove(fromSido, toSido);
-        return pm;
-    }
-
-    // 파일을 읽어와서 한 줄씩 읽기
-    public List<PopulationMove> readByLineForHeatmap(String filename) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(filename));
-        String str;
-        List<PopulationMove> pml = new ArrayList<>();
-        while ((str = br.readLine()) != null) {
-            //System.out.println(str);
-            PopulationMove pm = parseForHeatmap(str);
-            pml.add(pm);
-        }
-        return pml;
     }
 
     public Map<String, Integer> heatmapIdxMap() {
@@ -148,8 +123,7 @@ public class PopulationStatistics {
         List<PopulationMove> pml = ps.readByLine(fileAddress);
 
         //  $$(전출코드),$$(전입코드) 형식으로 파일 정리.
-        String filename = "P:\\Study\\BootSpring\\TIL\\likelion_adu\\src\\file\\mdis\\splitData.txt";
-        //String filename = "F:\\Study\\java-til\\likelion_adu\\src\\file\\mdis\\splitData.txt";
+        String filename = "P:\\Study\\BootSpring\\TIL\\likelion_adu\\src\\file\\mdis\\splitData2.txt";
         ps.createFile(filename);
 
         List<String> inData = new ArrayList<>();
@@ -159,16 +133,11 @@ public class PopulationStatistics {
         }
 
         ps.write(inData, filename);
-
-        // $$(전출코드), $$(전입코드)를 heat맵 형식에 맞게,
-        //fileAddress = "F:\\Study\\java-til\\likelion_adu\\src\\file\\mdis\\splitData.txt";
-        fileAddress = "P:\\Study\\BootSpring\\TIL\\likelion_adu\\src\\file\\mdis\\splitData.txt";
-        pml = ps.readByLineForHeatmap(fileAddress);
-
         Map<String, Integer> map = ps.getMoveCntMap(pml);
         Map<String, Integer> heatmapIdxMap = ps.heatmapIdxMap();
+
         // + 전입 전출한 숫자 증가자료 포함하여 다시 추출
-        String targetFilename = "./for_heatmap.txt";
+        String targetFilename = "./for_heatmap2.txt";
         ps.createFile(targetFilename);
         List<String> cntResult = new ArrayList<>();
 
@@ -178,7 +147,7 @@ public class PopulationStatistics {
             String s = String.format("[%s, %s, %d] ,", heatmapIdxMap.get(fromto[0]), heatmapIdxMap.get(fromto[1]), map.get(key));
             cntResult.add(s);
         }
-        System.out.println(pml.size());
+        System.out.println(pml.size()); // 6209323
         ps.write(cntResult, targetFilename);
 
     }
