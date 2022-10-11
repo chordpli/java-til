@@ -53,7 +53,7 @@ public class PopulationStatistics {
         String str[] = data.split(",");
         int toSido = Integer.parseInt(str[0]);
         int fromSido = Integer.parseInt(str[6]);
-        PopulationMove pm = new PopulationMove(fromSido, toSido);
+        PopulationMove pm = new PopulationMove(toSido, fromSido);
         return pm;
     }
 

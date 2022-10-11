@@ -82,7 +82,6 @@ public class PopulationStatistics {
         }
     }
 
-
     public Map<String, Integer> getMoveCntMap(List<PopulationMove> populationMoveList) {
         Map<String, Integer> moveCntMap = new HashMap<>();
 
@@ -180,6 +179,5 @@ public class PopulationStatistics {
         }
         System.out.println(pml.size());
         ps.write(cntResult, targetFilename);
-
     }
 }
