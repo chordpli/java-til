@@ -1,61 +1,56 @@
 package n02study.신고결과받기;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.HashSet;
 
 public class Solution {
 
-    String reporter;
-    String reported;
-
-    public Solution(String reporter, String reported) {
-        this.reporter = reporter;
-        this.reported = reported;
-    }
 
     public int[] solution(String[] id_list, String[] report, int k){
-        // 신고 누적 초기화, ID리스트
-        Map<String, Integer> check = new HashMap<>(init(id_list));
+        int[] result = new int[id_list.length];
 
-        // 신고를 받아봅시다. // reporter, reported로 나뉨
-        List<Solution> reportList = new ArrayList<>(parseReport(report));
+        HashMap<String, HashSet<String>> reportMap = new HashMap<>();
+        HashMap<String, Integer> reportCountMap = new HashMap<>();
 
-        for(Solution s: reportList){
-            if(check == null){
-                check.put(s.reporter)
+        for (int i = 0; i < id_list.length; i++) {
+            HashSet<String> reportId = new HashSet<>();
+            reportMap.put(id_list[i], reportId);
+            // Muzi = [] -> 이런 형태로 초기화
+            reportCountMap.put(id_list[i], 0);
+            // Muzi = 0 -> 신고받은 횟수 초기화
+        }
+
+        for (String s : report) {
+            String reportId = s.split(" ")[0];
+            String reportedId = s.split(" ")[1];
+
+            reportMap.get(reportedId).add(reportId);
+            // 신고 당한 User = Key, 신고한 User = Value;
+        }
+
+        for (String s : reportMap.keySet()) {
+            HashSet<String> sendEmail = reportMap.get(s);
+            if (sendEmail.size() >= k) {
+                for (String userId : sendEmail) {
+                    reportCountMap.put(userId, reportCountMap.get(userId)+1);
+                }
             }
         }
 
-        Map<String, Map<String, Integer>> sMap = new HashMap<>();
-
-        return new int[5];
-    }
-    public Map<String, Integer> init(String[] id_list){
-        Map<String, Integer> initReport = new HashMap<>();
-        for(String s: id_list){
-            initReport.put(s, 0);
+        for (int i = 0; i < id_list.length; i++) {
+            result[i] = reportCountMap.get(id_list[i]);
         }
-        return initReport;
+
+        return result;
     }
 
-    public List<Solution> parseReport(String[] report){
-        List<Solution> reportList = new ArrayList<>();
-        for(int i = 0; i < report.length; i++){
-            Solution s;
-            String reporter = report[i].split(" ")[0];
-            String reported = report[i].split(" ")[1];
-            s = new Solution(reporter, reported);
-            reportList.add(s);
-        }
-        return reportList;
-    }
 
     public static void main(String[] args) {
         String[] idList = {"musi", "frodo", "apeach", "neo"};
         String[] report = {"muzi frodo", "apeach frodo", "frodo neo", "muzi neo", "apeach muzi"};
         int k = 2;
+        Solution s = new Solution();
 
+        System.out.println(s.solution(idList, report, k));
     }
 }
