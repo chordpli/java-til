@@ -14,10 +14,8 @@ public class Solution {
 
         for (int i = 0; i < id_list.length; i++) {
             HashSet<String> reportId = new HashSet<>();
-            reportMap.put(id_list[i], reportId);
-            // Muzi = [] -> 이런 형태로 초기화
-            reportCountMap.put(id_list[i], 0);
-            // Muzi = 0 -> 신고받은 횟수 초기화
+            reportMap.put(id_list[i], reportId);    // Muzi = [] -> 이런 형태로 초기화
+            reportCountMap.put(id_list[i], 0);  // Muzi = 0 -> 신고받은 횟수 초기화
         }
 
         for (String s : report) {
