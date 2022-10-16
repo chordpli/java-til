@@ -15,6 +15,7 @@ public class Solution {
         for (String s : clothesMap.keySet()) {
             ans *= clothesMap.get(s);
         }
+
         return ans - 1;
     }
 
