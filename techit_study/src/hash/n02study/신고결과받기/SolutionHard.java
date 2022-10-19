@@ -1,4 +1,4 @@
-package n02study.신고결과받기;
+package hash.n02study.신고결과받기;
 
 import java.util.*;
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MakeStack <T>{
-    List<T> stack = new ArrayList<>();
+    private List<T> stack = new ArrayList<>();
 
     public MakeStack() {
         this.stack = stack;
@@ -14,11 +14,11 @@ public class MakeStack <T>{
         stack.add(object);
     }
 
-    public void pull(){
+    public T pull(){
         if (stack.isEmpty()) {
-            System.out.println("stack is empty");
+            return null;
         }else{
-            System.out.println(stack.remove(stack.size()-1));
+            return stack.remove(stack.size()-1);
         }
 
     }

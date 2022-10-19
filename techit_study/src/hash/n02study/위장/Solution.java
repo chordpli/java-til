@@ -1,4 +1,4 @@
-package n02study.위장;
+package hash.n02study.위장;
 
 import java.util.HashMap;
 
