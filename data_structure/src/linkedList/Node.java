@@ -16,7 +16,5 @@ public class Node<T> {
         node1.next = node2;
         Node head = node1; // 맨 앞을 나타내는 변수 그래서 맨 앞에 있는 노드 객체를 넣음
 
-
-
     }
 }
