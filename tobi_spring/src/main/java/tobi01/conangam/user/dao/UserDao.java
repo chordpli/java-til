@@ -17,11 +17,18 @@ public class UserDao {
     메소드의 구현은 서브클래스가 담당한다.*/
     /*public abstract Connection getConnection() throws ClassNotFoundException, SQLException;*/
 
-    private SimpleConnectionMaker simpleConnectionMaker;
+    /*private SimpleConnectionMaker simpleConnectionMaker;*/
+
+    private ConnectionMaker connectionMaker;
+
+    public UserDao(){
+        connectionMaker = new ChordpliConnectionMaker();
+    }
 
     public void add(User user) throws ClassNotFoundException, SQLException {
         /*Connection c = getConnection(); // DB 연결이 필요할 때, getConnection()메소드 이용*/
-        Connection c = simpleConnectionMaker.makeNewConnection();
+        /*Connection c = simpleConnectionMaker.makeNewConnection();*/
+        Connection c = connectionMaker.makeConnection();
         PreparedStatement ps = c.prepareStatement("insert into users(id, name, password) values(?,?,?)");
         ps.setString(1, user.getId());
         ps.setString(2, user.getName());
@@ -34,8 +41,7 @@ public class UserDao {
     }
 
     public User get(String id) throws ClassNotFoundException, SQLException {
-        Connection c = simpleConnectionMaker.makeNewConnection();
-
+        Connection c = connectionMaker.makeConnection();
         PreparedStatement ps = c.prepareStatement("select * from users where id = ?");
         ps.setString(1, id);
 
