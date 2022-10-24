@@ -4,7 +4,7 @@ import tobi01.conangam.user.domain.User;
 
 import java.sql.*;
 
-public abstract class UserDao {
+public class UserDao {
 
     /*중복된 코드를 독립적인 메소드로 만들어 중복 제거*/
     /*private Connection getConnection() throws ClassNotFoundException, SQLException {
@@ -15,10 +15,13 @@ public abstract class UserDao {
 
     /*구현 코드는 제거되고 추상 메소드로 바뀌었다.
     메소드의 구현은 서브클래스가 담당한다.*/
-    public abstract Connection getConnection() throws ClassNotFoundException, SQLException;
+    /*public abstract Connection getConnection() throws ClassNotFoundException, SQLException;*/
+
+    private SimpleConnectionMaker simpleConnectionMaker;
 
     public void add(User user) throws ClassNotFoundException, SQLException {
-        Connection c = getConnection(); // DB 연결이 필요할 때, getConnection()메소드 이용
+        /*Connection c = getConnection(); // DB 연결이 필요할 때, getConnection()메소드 이용*/
+        Connection c = simpleConnectionMaker.makeNewConnection();
         PreparedStatement ps = c.prepareStatement("insert into users(id, name, password) values(?,?,?)");
         ps.setString(1, user.getId());
         ps.setString(2, user.getName());
@@ -31,7 +34,7 @@ public abstract class UserDao {
     }
 
     public User get(String id) throws ClassNotFoundException, SQLException {
-        Connection c = getConnection();
+        Connection c = simpleConnectionMaker.makeNewConnection();
 
         PreparedStatement ps = c.prepareStatement("select * from users where id = ?");
         ps.setString(1, id);
