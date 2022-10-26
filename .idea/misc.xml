@@ -10,6 +10,7 @@
     <file type="web" url="file://$PROJECT_DIR$/self_jpa/ch11-jpa-shop" />
     <file type="web" url="file://$PROJECT_DIR$/self_jpa/ch12-springdata-shop" />
     <file type="web" url="file://$PROJECT_DIR$/tobi_spring" />
+    <file type="web" url="file://$PROJECT_DIR$/woowacourse" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
@@ -25,6 +26,7 @@
         <option value="$PROJECT_DIR$/self_jpa/ch11-jpa-shop/pom.xml" />
         <option value="$PROJECT_DIR$/self_jpa/ch12-springdata-shop/pom.xml" />
         <option value="$PROJECT_DIR$/shop/pom.xml" />
+        <option value="$PROJECT_DIR$/self-study/shop/pom.xml" />
       </list>
     </option>
   </component>

@@ -9,7 +9,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ch04-model1" />
         <module name="ch05-model2" />
-        <module name="shop" />
         <module name="ch06-model3" />
         <module name="ch12-springdata-shop" />
         <module name="ch04-jpa-start2" />
@@ -18,6 +17,12 @@
         <module name="ch08-model5" />
         <module name="ch09-model6" />
         <module name="ch11-jpa-shop" />
+      </profile>
+      <profile name="Annotation profile for shop" enabled="true">
+        <sourceOutputDir name="../self-study/shop/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../self-study/shop/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="shop" />
       </profile>
     </annotationProcessing>
   </component>
