@@ -29,4 +29,5 @@ bin/
 .DS_Store!/kotlin/.idea/
 /likelion_adu/likelion_adu.iml
 /TIL.iml
-/.idea/
+.idea/
+
