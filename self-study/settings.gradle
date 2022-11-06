@@ -1,0 +1,3 @@
+rootProject.name = 'self-study'
+include 'double-colon-and-lambda-expression'
+

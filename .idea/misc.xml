@@ -7,6 +7,8 @@
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/likelion-hello-spring-boot" />
+    <file type="web" url="file://$PROJECT_DIR$/self-study" />
     <file type="web" url="file://$PROJECT_DIR$/self_jpa/ch11-jpa-shop" />
     <file type="web" url="file://$PROJECT_DIR$/self_jpa/ch12-springdata-shop" />
     <file type="web" url="file://$PROJECT_DIR$/tobi_spring" />
