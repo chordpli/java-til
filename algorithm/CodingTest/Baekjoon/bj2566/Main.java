@@ -22,13 +22,13 @@ public class Main {
 
     // 최대 값을 찾는다.
     static void findMax(int[][] map) {
-        int max = map[1][1];
-        int row = 1;
-        int column = 1;
+        int max = -1;
+        int row = 0;
+        int column = 0;
 
         // 행렬을 돌면서 최댓값을 찾는다.
         for (int i = 1; i <= 9; i++) {
-            for (int j = 1; j < 9; j++) {
+            for (int j = 1; j <= 9; j++) {
                 // 저장되어 있는 최댓값보다 현재 map의 값이 크다면 값을 치환한다.
                 if (max < map[i][j]) {
                     max = map[i][j];
